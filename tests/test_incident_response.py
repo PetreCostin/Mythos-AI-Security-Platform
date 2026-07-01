@@ -18,9 +18,9 @@ async def test_responder_executes_playbook() -> None:
     event = ThreatEvent(
         source="edr", description="ransomware behavior", indicators=["a.encrypted"], score=0.9
     )
-
-    incident = await responder.create_incident(event, severity="critical", reason="ransomware rule")
-    result = await responder.execute_playbook(incident, playbook)
+    incident = await responder.create_incident(
+        event, severity=SeverityLevel.critical, reason="ransomware rule"
+    )
 
     assert result.executed_actions
     assert result.incident.status == "resolved"
