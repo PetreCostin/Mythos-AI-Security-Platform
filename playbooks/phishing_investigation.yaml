@@ -1,0 +1,13 @@
+name: phishing_investigation
+trigger_severity: medium
+description: Investigate and remediate phishing incidents.
+steps:
+  - action: alert
+    parameters:
+      channel: soc
+  - action: collect
+    parameters:
+      artifact: email_headers
+  - action: remediate
+    parameters:
+      action: reset_compromised_credentials

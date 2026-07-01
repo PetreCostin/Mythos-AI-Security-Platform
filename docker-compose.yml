@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    env_file: .env.example
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: mythos
+      POSTGRES_USER: mythos
+      POSTGRES_PASSWORD: mythos
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  celery_worker:
+    build: .
+    command: ["python", "-m", "mythos.automation.tasks"]
+    env_file: .env.example
+    depends_on:
+      - redis
+      - api
+
+volumes:
+  postgres_data:
