@@ -8,7 +8,6 @@ from mythos.incident_response.playbooks import load_playbook
 from mythos.incident_response.responder import IncidentResponder
 from mythos.threat_detection.models import SeverityLevel, ThreatEvent
 
-
 @pytest.mark.asyncio
 async def test_responder_executes_playbook() -> None:
     playbook_path = Path("playbooks/ransomware_response.yaml")
@@ -21,7 +20,6 @@ async def test_responder_executes_playbook() -> None:
     incident = await responder.create_incident(
         event, severity=SeverityLevel.critical, reason="ransomware rule"
     )
-    result = await responder.execute_playbook(incident, playbook)
 
     assert result.executed_actions
     assert result.incident.status == "resolved"
