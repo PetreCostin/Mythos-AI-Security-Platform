@@ -10,10 +10,7 @@ class Settings(BaseSettings):
 
     app_name: str = "Mythos AI Security Platform"
     environment: str = "development"
-    api_prefix: str = "/api/v1"
-
-    database_url: str = "******localhost:5432/mythos"
-    redis_url: str = "redis://localhost:6379/0"
+    database_url: str = "postgresql+asyncpg://mythos:mythos@localhost:5432/mythos"
 
     jwt_secret_key: str = "change-me"
     jwt_algorithm: str = "HS256"
