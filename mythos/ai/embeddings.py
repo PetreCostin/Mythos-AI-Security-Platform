@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import math
 
 
@@ -15,7 +16,8 @@ class EmbeddingEngine:
         """Embeds text into a fixed-size dense vector."""
         vector = [0.0] * self.dimensions
         for token in text.lower().split():
-            index = hash(token) % self.dimensions
+            token_hash = hashlib.sha256(token.encode("utf-8")).digest()
+            index = int.from_bytes(token_hash[:8], "big") % self.dimensions
             vector[index] += 1.0
         norm = math.sqrt(sum(value * value for value in vector)) or 1.0
         return [value / norm for value in vector]
