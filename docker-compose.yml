@@ -26,13 +26,6 @@ services:
     ports:
       - "6379:6379"
 
-  celery_worker:
-    build: .
-    command: ["python", "-m", "mythos.automation.tasks"]
-    env_file: .env.example
-    depends_on:
-      - redis
-      - api
 
 volumes:
   postgres_data:
