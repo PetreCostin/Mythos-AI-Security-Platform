@@ -8,7 +8,6 @@ from mythos.incident_response.playbooks import load_playbook
 from mythos.incident_response.responder import IncidentResponder
 from mythos.threat_detection.models import SeverityLevel, ThreatEvent
 
-
 @pytest.mark.asyncio
 async def test_responder_executes_playbook() -> None:
     playbook_path = Path("playbooks/ransomware_response.yaml")
