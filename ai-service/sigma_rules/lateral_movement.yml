@@ -1,0 +1,17 @@
+title: Lateral Movement via WMI
+status: stable
+description: Detects lateral movement using WMI
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains:
+            - 'wmic /node:'
+            - 'Invoke-WmiMethod'
+            - 'wmiexec'
+    condition: selection
+level: high
+tags:
+    - attack.lateral_movement
+    - attack.t1021.006
