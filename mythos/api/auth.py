@@ -27,6 +27,11 @@ async def get_current_subject(
     if not settings.auth_enabled:
         return "anonymous"
 
+    if settings.jwt_secret_key.strip().lower() in {"change-me", "replace-with-secure-secret"}:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Server misconfiguration: JWT secret key must be set when auth is enabled",
+        )
     if credentials is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication required"
