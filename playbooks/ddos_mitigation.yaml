@@ -1,0 +1,13 @@
+name: ddos_mitigation
+trigger_severity: high
+description: Mitigate volumetric denial-of-service attacks.
+steps:
+  - action: alert
+    parameters:
+      channel: noc
+  - action: block
+    parameters:
+      target: source_ips
+  - action: remediate
+    parameters:
+      action: scale_waf_rules

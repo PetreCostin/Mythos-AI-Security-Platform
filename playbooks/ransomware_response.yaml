@@ -1,0 +1,16 @@
+name: ransomware_response
+trigger_severity: critical
+description: Contain ransomware activity and recover operations.
+steps:
+  - action: isolate
+    parameters:
+      network_segment: quarantine
+  - action: alert
+    parameters:
+      channel: soc
+  - action: collect
+    parameters:
+      artifact: memory_dump
+  - action: remediate
+    parameters:
+      action: restore_from_backup
